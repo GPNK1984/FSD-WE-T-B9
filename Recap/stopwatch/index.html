@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stopwatch</title>
+    <style>
+        #root{
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            /* gap:20px; */
+            flex-wrap: wrap;
+        }
+        .big{
+            font-size: 60px;
+        }
+        .small{
+            font-size: 15px;
+        }
+        .buttons{
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            gap:20px;
+            flex-wrap: wrap;
+        }
+        .button{
+            margin-top:20px;
+        }
+        #result{
+            text-align: center;
+            margin-top: 50px;
+            font-size: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div id="root">
+        <div class="big"><span id="h">00</span><sub class="small">HH</sub>:</div>
+        <div class="big"><span id="m">00</span><sub class="small">MM</sub>:</div>
+        <div class="big"><span id="s">00</span><sub class="small">SS</sub>:</div>
+        <div class="big"><span id="ms">00</span><sub class="small">MS</sub></div>
+    </div>
+    <div class="buttons">
+        <button class='button' id="start" onClick="startWatch()">START</button>
+        <button class='button' id="stop" onClick="stopWatch()">STOP</button>
+        <button class='button' id="reset" onClick="resetWatch()">RESET</button>
+        <button class='button' id="split" onClick="splitWatch()">SPLIT</button>
+    </div>
+    <div id="result"></div>
+   
+    
+<script src="./main.js"></script>
+</body>
+</html>

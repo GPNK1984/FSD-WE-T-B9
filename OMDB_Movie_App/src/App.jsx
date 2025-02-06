@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { Routes, Route, Navigate, useNavigate } from 'react-router';
 import './App.css'
 import Nav from './components/Nav'
-import Card from './components/Card'
 import toast, { Toaster } from 'react-hot-toast';
+import ShoppingCart from './components/ShoppingCart'
+import CardList from './components/CardList';
 
 
 function App() {
@@ -15,6 +15,9 @@ function App() {
   let [totalCart,setTotalCart]=useState(0); // total add to cart item count
   let [isOpen, setIsOpen] = useState(false); // boolean to handle cart modal
   //
+  let OMDBURL="78c75be"
+  let navigate=useNavigate();
+  https://www.omdbapi.com/?apikey=78c75be&s=action&page=1
 
   //Method used to fetch API product data from fakestore api
   const getProductData=async()=>{
@@ -22,8 +25,10 @@ function App() {
       let res=await fetch('https://fakestoreapi.com/products');
       let data=await res.json();
       if (res.status==200){
+        for(let product of data){
+          product["quantity"]=1; //adding this at run time to handle quantity logic
+        }
         setProducts(data)
-        console.log(data)
       }
     } catch (error) {
       toast.error(error.message || "Error in Fetching Data" )
@@ -39,14 +44,12 @@ function App() {
   const setCartData=(productItem)=>{
     if(!cartItems.includes(productItem)){
       setCartItems([...cartItems,productItem])
-      
     }else{
-      toast.error("Item already added to the cart")
+      removeCartItems(productItem.id)
     }
-    
-   
   }
-  //Used to remove the cart items when we tap from CartModal popup remove cart button
+  
+  //Used to remove the cart items when we tap remove cart button
   const removeCartItems=(id)=>{
     for(let i=0;i<cartItems.length;i++){
       if(cartItems[i].id==id){
@@ -57,10 +60,32 @@ function App() {
     setTotalCart(cartItems.length)
   }
 
+  //Update quantity when we tap '+' or '-' button
+  const onUpdateQuantity=(id,value)=>{
+    for(let i=0;i<cartItems.length;i++){
+      if(cartItems[i].id==id){
+        cartItems[i].quantity=value;
+      }
+    }
+    const deepCopyOfCartItems = (cartItems) => JSON.parse(JSON.stringify(cartItems)); // Deep cloning of cart items object
+    setCartItems(deepCopyOfCartItems);
+    setTotalCart(deepCopyOfCartItems.length)
+  }
+ 
+
   //Update CartItems when data changes happening in cartItems array
   useEffect(()=>{
     setTotalCart(cartItems.length)
   },[cartItems])
+
+  //Update CartItems when data changes happening in cartItems array
+  useEffect(()=>{
+    if(isOpen){
+      navigate("/shopping-cart")
+    }else{
+      navigate("/card-list")
+    }
+  },[isOpen])
 
   //Fetch API data when component loads
   useEffect(()=>{
@@ -70,20 +95,12 @@ function App() {
   return (
     <>
     
-    <Nav totalCart={totalCart} cartItems={cartItems} toggleModal={toggleModal} isOpen={isOpen} removeCartItems={removeCartItems}></Nav>
-    <div className="antialiased text-gray-900 ">
-     <div className="bg-gray-200 min-h-screen p-8 flex flex-wrap gap-3 justify-center">
-      {
-       
-        products.map((product,id)=>{
-          return <>
-          <Card key={id} product={product} setCartData={setCartData} />
-          </>
-        })
-      }
-      
-      </div>
-    </div>
+    <Nav totalCart={totalCart} toggleModal={toggleModal}></Nav>
+    <Routes>
+      <Route path="/shopping-cart" element={<ShoppingCart cartItems={cartItems} onUpdateQuantity={onUpdateQuantity} removeCartItems={removeCartItems}/>}/>
+      <Route path="/card-list" element={<CardList products={products} cartItems={cartItems} setCartData={setCartData}/>}/>
+      <Route path="*" element={<Navigate to='/card-list'/>}/>
+    </Routes>
     <Toaster/>
   
     </>

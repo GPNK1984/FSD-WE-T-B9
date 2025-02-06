@@ -1,8 +1,21 @@
 # React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Add to Cart Task Using Router
 
-Currently, two official plugins are available:
+Task Description:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Create a separate page for product and cart functionality, including the ability to add and remove items from the cart, and ensure proper routing within a ReactJS application.
+
+App.jsx
+  - Nav.jsx
+  - CardList.jsx
+      - Card.jsx
+  - ShoppingCart.jsx
+
+App.jsx - is the main file with router
+Nav.jsx - is the header section
+CardList.jsx - is the holder for cards and iteration logic available here
+Card.jsx - Card component
+ShoppingCart.jsx - is the cart items display page with pricing logic
+
+All other remianing things documented at code level

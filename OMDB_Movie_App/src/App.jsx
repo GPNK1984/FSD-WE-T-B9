@@ -17,8 +17,8 @@ function App() {
   //
   let OMDBURL="78c75be"
   let navigate=useNavigate();
-  https://www.omdbapi.com/?apikey=78c75be&s=action&page=1
-
+  // https://www.omdbapi.com/?apikey=78c75be&s=action&page=1
+  
   //Method used to fetch API product data from fakestore api
   const getProductData=async()=>{
     try {
@@ -30,7 +30,7 @@ function App() {
         }
         setProducts(data)
       }
-    } catch (error) {
+    }catch (error) {
       toast.error(error.message || "Error in Fetching Data" )
     }
   }
@@ -89,7 +89,7 @@ function App() {
 
   //Fetch API data when component loads
   useEffect(()=>{
-    getProductData();
+    // getProductData();
    },[])
 
   return (

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Income Expense Calculator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-6">
+    <div class="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-md">
+        <h2 class="text-xl font-bold text-center">Income Expense Calculator</h2>
+        
+        <div class="my-4 flex justify-center space-x-4">
+            <p class="border p-2">Total Income: <span id="totalIncome" class="text-blue-500">$0</span></p>
+            <p class="border p-2">Total Expense: <span id="totalExpense" class="text-red-500">$0</span></p>
+            <h3 class="p-2 text-lg font-semibold border">Balance: <span id="balance" class="text-green-500">$0</span></h3>
+        </div>
+        
+        <div class="mb-4">
+            <input type="text" id="description" placeholder="Description" class="w-full p-2 border rounded mb-2">
+            <input type="number" id="amount" placeholder="Amount" class="w-full p-2 border rounded mb-2">
+            <select id="type" class="w-full p-2 border rounded mb-2">
+                <option value="income">Income</option>
+                <option value="expense">Expense</option>
+            </select>
+           
+        </div>
+        <div class="mb-4  flex space-x-4">
+            <button id="addTransaction" class="bg-blue-500 text-white p-2 w-full rounded">Add Transaction</button>
+            <button id="reset" class="bg-red-500 text-white p-2 w-full rounded ">Reset</button>
+        </div>
+        <div class="mb-4">
+            <label><input type="radio" name="filter" value="all" checked> All</label>
+            <label><input type="radio" name="filter" value="income"> Income</label>
+            <label><input type="radio" name="filter" value="expense"> Expense</label>
+        </div>
+        
+        <ul id="transactionList" class="space-y-2"></ul>
+        
+    </div>
+
+    <script src="main.js"></script> 
+</body>
+</html>
